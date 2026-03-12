@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Stațiuni de Schi</title>
+</head>
+
+<body bgcolor="white" style="margin:0;">
+
+<!-- fundal + text -->
+<div style="background-image:url('ski3.jpg'); height:400px; background-size:contain; background-repeat:no-repeat; background-position:center center; color:white; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+<h1 title="Site despre schi" style="margin:0; font-size:60px;">Stațiuni de Schi</h1>
+<p style="font-size:30px; margin:5px 0; font-weight:bold;">
+Bine ai venit pe site-ul despre stațiuni de schi. Aici poți vedea <span title="locuri pentru schi">stațiuni populare</span>.
+</p>
+</div>
+
+<br>
+
+<!-- top stațiuni -->
+<fieldset>
+<legend>Preferatele noastre</legend>
+
+<ol start="1">
+<li>Poiana Brașov</li>
+<li>Sinaia</li>
+<li>Straja</li>
+</ol>
+
+</fieldset>
+
+<br>
+
+<!-- tabel stațiuni -->
+<fieldset>
+<legend>Stațiuni populare</legend>
+
+<table border="1" width="60%" align="center">
+<tr bgcolor="lightblue">
+<th>Stațiune</th>
+<th>Țară</th>
+<th>Altitudine</th>
+</tr>
+
+<tr>
+<td align="center" valign="middle">Poiana Brașov</td>
+<td align="center">România</td>
+<td align="center">1020 m</td>
+</tr>
+
+<tr>
+<td align="center">Sinaia</td>
+<td align="center">România</td>
+<td align="center">1000 m</td>
+</tr>
+
+<tr>
+<td align="center">Straja</td>
+<td align="center">România</td>
+<td align="center">1445 m</td>
+</tr>
+
+<tr>
+<td align="center">Predeal</td>
+<td align="center">România</td>
+<td align="center">1100 m</td>
+</tr>
+
+<tr>
+<td align="center">Transalpina Ski Resort</td>
+<td align="center">România</td>
+<td align="center">1400 m</td>
+</tr>
+
+<tr>
+<td align="center">Ski Arena Plai</td>
+<td align="center">România</td>
+<td align="center">1350 m</td>
+</tr>
+
+<tr>
+<td align="center">Bâlea Lac</td>
+<td align="center">România</td>
+<td align="center">2034 m</td>
+</tr>
+
+<tr>
+<td align="center">Azuga</td>
+<td align="center">România</td>
+<td align="center">950 m</td>
+</tr>
+
+<tr>
+<td align="center">Vârtop</td>
+<td align="center">România</td>
+<td align="center">1400 m</td>
+</tr>
+
+<tr>
+<td align="center">Păltiniș</td>
+<td align="center">România</td>
+<td align="center">1440 m</td>
+</tr>
+
+</table>
+
+</fieldset>
+
+<br>
+
+<center>
+<a href="https://www.skiresort.info" target="_blank" name="linkSki">
+Vezi mai multe stațiuni de schi
+</a>
+</center>
+
+<br>
+
+<!-- formular preferințe + imagine -->
+<form>
+<fieldset>
+<legend>Vrem să știm părerea ta</legend>
+
+<table width="100%">
+<tr>
+<td valign="top" width="60%">
+
+<p>Nume:</p>
+<input type="text" name="nume" maxlength="20" size="20">
+
+<br><br>
+
+<p>Alege stațiunea preferată:</p>
+<select name="statiune" size="5" multiple>
+<option value="poiana" selected>Poiana Brașov</option>
+<option value="sinaia">Sinaia</option>
+<option value="straja">Straja</option>
+<option value="predeal">Predeal</option>
+<option value="transalpina">Transalpina Ski Resort</option>
+<option value="plai">Ski Arena Plai</option>
+<option value="balea">Bâlea Lac</option>
+<option value="azuga">Azuga</option>
+<option value="vartop">Vârtop</option>
+<option value="paltinis">Păltiniș</option>
+<option value="altele">Altele</option>
+</select>
+
+<br><br>
+
+<p>Nivelul tău de schi:</p>
+<select name="nivel">
+<option value="incepator">Începător</option>
+<option value="mediu" selected>Mediu</option>
+<option value="avansat">Avansat</option>
+</select>
+
+<br><br>
+
+<p>Comentarii:</p>
+<textarea cols="30" rows="6">
+Scrie părerea ta despre schi
+</textarea>
+
+<br><br>
+
+<input type="submit" value="Trimite">
+<input type="reset" value="Reset" disabled>
+
+</td>
+
+<td valign="top" width="40%" align="center">
+<img src="ski.jpg" alt="Partie de schi" width="700" height="520" title="Schi">
+</td>
+</tr>
+</table>
+
+</fieldset>
+</form>
+
+<h4>Despre proiect</h4>
+<p>Proiect realizat pentru laboratorul la materia Programare WEB.</p>
+<h5>Laborator HTML</h5>
+
+</body>
+</html>
