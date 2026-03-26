@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<title>Catalog Filme</title>
+
+<style>
+body {
+    font-family: Arial;
+    background-color: #f4f6f9;
+    margin: 20px;
+}
+
+h1 { color: #000000; }
+h2 { color: #606060; }
+
+fieldset {
+    border-radius: 10px;
+    padding: 15px;
+    background-color: white;
+    width: 400px;
+}
+
+table {
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th {
+    background-color: #000000;
+    color: white;
+    padding: 8px;
+}
+
+td { padding: 8px; }
+
+tr:nth-child(even) {
+    background-color: #ecf0f1;
+}
+
+img {
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+div {
+    background-color: #dfe6e9;
+    padding: 10px;
+    border-radius: 5px;
+}
+</style>
+
+</head>
+
+<body>
+
+<center>
+<h1>Catalog Filme</h1>
+<h2>Aplicație de gestionare filme</h2>
+</center>
+
+<p>
+<strong>Instrucțiuni:</strong> Completează formularul pentru a adăuga un film.
+<b>Atenție</b> și <em>verifică datele</em>.
+</p>
+
+<img src="pozafilm.webp" alt="Imagine film" width="200" height="300" title="Imagine film">
+
+<div style="height:60px;">
+<span>Gestionează filmele tale preferate</span>
+</div>
+
+<hr>
+
+<div style="background-color:#d0d6dc; padding:10px; border-radius:5px;">
+<h3>Informații cinema și calcul rating</h3>
+<div id="rezultateJS"></div>
+</div>
+
+<hr>
+
+<a href="#formular">➡ Mergi la formular</a>
+
+<hr>
+
+<h3>Pași adăugare film</h3>
+<ol start="1" type="I">
+<li>Completează formularul</li>
+<li>Selectează genul</li>
+<li>Alege formatul</li>
+<li>Trimite</li>
+</ol>
+
+<h3>Genuri disponibile</h3>
+<ul>
+<li>Acțiune</li>
+<li>Comedie</li>
+<li>Dramă</li>
+<li>Horror</li>
+<li>SF</li>
+</ul>
+
+<hr>
+
+<a name="formular"></a>
+
+<form id="filmForm">
+<fieldset>
+<legend>Adăugare film</legend>
+
+Titlu film:<br>
+<input type="text" name="titlu" maxlength="50" size="30"
+placeholder="Introdu titlul"><br>
+
+An apariție:<br>
+<input type="number" min="1900" max="2025" step="1" value="2020"><br>
+
+Gen:<br>
+<select multiple>
+<option selected>Acțiune</option>
+<option>Comedie</option>
+<option>Dramă</option>
+<option>Horror</option>
+<option>SF</option>
+</select><br>
+
+Status:<br>
+<input type="checkbox" checked> Vizionat<br>
+<input type="checkbox"> Favorit<br>
+<input type="checkbox" disabled> Indisponibil<br>
+
+<br>Format:<br>
+<input type="radio" name="format"> DVD
+<input type="radio" name="format"> Blu-ray<br>
+
+<br>Comentarii:<br>
+<textarea cols="30" rows="4" placeholder="Scrie ceva despre film..."></textarea><br>
+
+<input type="submit" value="Trimite">
+<input type="reset" value="Resetează">
+
+</fieldset>
+</form>
+
+<hr>
+
+<table border="1" width="80%" bgcolor="#ffffff" align="center">
+<thead>
+<tr>
+<th>Titlu</th>
+<th>Regizor</th>
+<th>An</th>
+<th>Rating</th>
+</tr>
+</thead>
+
+<tbody id="filmTable">
+
+<tr align="center">
+<td>Inception</td>
+<td rowspan="2">Christopher Nolan</td>
+<td>2010</td>
+<td>9</td>
+</tr>
+
+<tr align="center">
+<td>Interstellar</td>
+<td>2014</td>
+<td>9</td>
+</tr>
+
+<tr align="center">
+<td>Joker</td>
+<td>Todd Phillips</td>
+<td>2019</td>
+<td>8</td>
+</tr>
+
+<tr align="center">
+<td>Titanic</td>
+<td>James Cameron</td>
+<td>1997</td>
+<td>9</td>
+</tr>
+
+</tbody>
+
+<tr>
+<td colspan="4" align="center">
+Total filme: <span id="total">4</span>
+</td>
+</tr>
+
+</table>
+
+<hr>
+
+<a href="https://www.imdb.com" name="imdb" target="_blank">IMDB</a><br>
+<a href="https://www.rottentomatoes.com" name="rt" target="_blank">Rotten Tomatoes</a>
+
+<script>
+
+var numeCinema = "Cinema City";
+let nrFilme = 4;
+const pretBilet = 35.5;
+
+function calculeazaCostBilete(pretBilet, nrPersoane) {
+    if (nrPersoane > 5) {
+        return pretBilet * nrPersoane * 0.8;
+    }
+    return pretBilet * nrPersoane;
+}
+
+var calculeazaRatingMediu = function(r1, r2, r3) {
+    var suma = r1 + r2 + r3;
+    return (suma / 3).toFixed(1);
+};
+
+const formateazaInfo = (titlu, an, rating) => {
+    return titlu + " (" + an + ") - Rating: " + rating + "/10";
+};
+
+let costGrup = calculeazaCostBilete(pretBilet, 7);
+let costNormal = calculeazaCostBilete(pretBilet, 3);
+let ratingMediu = calculeazaRatingMediu(8.5, 7.2, 9.0);
+let info = formateazaInfo("Inception", 2010, ratingMediu);
+
+let divRez = document.getElementById("rezultateJS");
+divRez.innerHTML = `
+<p><b>Cinema:</b> ${numeCinema}</p>
+<p><b>Număr filme:</b> ${nrFilme}</p>
+<p><b>Preț bilet:</b> ${pretBilet} lei</p>
+<p>Cost grup (7 pers): ${costGrup} lei</p>
+<p>Cost normal (3 pers): ${costNormal} lei</p>
+<p>${info}</p>
+`;
+
+document.getElementById("filmForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    let titlu = document.querySelector('input[name="titlu"]').value;
+    let an = document.querySelector('input[type="number"]').value;
+
+    if(titlu === "") {
+        alert("Introdu titlul!");
+        return;
+    }
+
+    let tabel = document.getElementById("filmTable");
+    let rand = tabel.insertRow();
+
+    rand.insertCell(0).innerText = titlu;
+    rand.insertCell(1).innerText = "Necunoscut";
+    rand.insertCell(2).innerText = an;
+    rand.insertCell(3).innerText = "-";
+
+    let total = tabel.rows.length;
+    document.getElementById("total").innerText = total;
+
+    document.getElementById("filmForm").reset();
+});
+</script>
+
+<div style="background-color:#000000; padding:10px; border-radius:5px; margin-top:20px;">
+<h3 style="color:rgb(255, 255, 255);">Catalog Filme</h3>
+<div id="rezultateEx3"></div>
+</div>
+
+<script>
+
+const filmeArray = [
+    {titlu: "Inception", regizor: "Christopher Nolan", an: 2010, rating: 9, gen: "SF", vizionat: true},
+    {titlu: "Interstellar", regizor: "Christopher Nolan", an: 2014, rating: 9, gen: "SF", vizionat: false},
+    {titlu: "Joker", regizor: "Todd Phillips", an: 2019, rating: 8, gen: "Dramă", vizionat: true},
+    {titlu: "Titanic", regizor: "James Cameron", an: 1997, rating: 9, gen: "Dramă", vizionat: false},
+    {titlu: "Avengers: Endgame", regizor: "Anthony Russo", an: 2019, rating: 8.5, gen: "Acțiune", vizionat: true},
+    {titlu: "Parasite", regizor: "Bong Joon-ho", an: 2019, rating: 8.6, gen: "Dramă", vizionat: false}
+];
+
+console.log("Filme cu rating > 8:");
+filmeArray.forEach(f => { if(f.rating > 8) console.log(f); });
+
+const filmeFormatate = filmeArray.map(f => `${f.titlu} (${f.an}) - ${f.rating}/10`);
+console.log("Filme formatate:", filmeFormatate);
+
+const filmeNevizionate = filmeArray.filter(f => f.vizionat === false);
+console.log("Filme nevizionate:", filmeNevizionate);
+
+const sumaRating = filmeArray.reduce((acc, f) => acc + f.rating, 0);
+const mediaRating = (sumaRating / filmeArray.length).toFixed(2);
+console.log("Suma rating-urilor:", sumaRating);
+console.log("Media rating-urilor:", mediaRating);
+
+var cinema = {
+    nume: "Cinema City",
+    oras: "Cluj-Napoca",
+    filme: filmeArray,
+    afiseazaCatalog: function() {
+        this.filme.forEach(f => {
+            console.log(`Titlu: ${f.titlu}, Regizor: ${f.regizor}, An: ${f.an}, Rating: ${f.rating}, Gen: ${f.gen}, Vizionat: ${f.vizionat}`);
+        });
+    },
+    calculeazaRatingMediu: function() {
+        const total = this.filme.reduce((acc, f) => acc + f.rating, 0);
+        return (total / this.filme.length).toFixed(2);
+    },
+    cautaFilm: function(titluFilm) {
+        return this.filme.find(f => f.titlu.toLowerCase() === titluFilm.toLowerCase()) || null;
+    },
+    filtreazaDupaGen: function(gen) {
+        return this.filme.filter(f => f.gen.toLowerCase() === gen.toLowerCase());
+    }
+};
+
+let divEx3 = document.getElementById("rezultateEx3");
+
+let afisareText = "<h4>Catalog complet filme:</h4>";
+cinema.filme.forEach(f => {
+    afisareText += `<p>${f.titlu} (${f.an}) - Regizor: ${f.regizor}, Rating: ${f.rating}, Gen: ${f.gen}, Vizionat: ${f.vizionat}</p>`;
+});
+
+afisareText += `<p><b>Rating mediu:</b> ${cinema.calculeazaRatingMediu()}</p>`;
+
+let filmGasit = cinema.cautaFilm("Titanic");
+let filmNegasit = cinema.cautaFilm("Star Wars");
+afisareText += `<p><b>Cauta "Titanic":</b> ${filmGasit ? filmGasit.titlu + " găsit" : "Nu există"}</p>`;
+afisareText += `<p><b>Cauta "Star Wars":</b> ${filmNegasit ? filmNegasit.titlu : "Nu există"}</p>`;
+
+let filmeDramă = cinema.filtreazaDupaGen("Dramă");
+afisareText += "<p><b>Filme Dramă:</b> " + filmeDramă.map(f => f.titlu).join(", ") + "</p>";
+
+divEx3.innerHTML = afisareText;
+
+</script>
+
+</body>
+</html>
