@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalog Filme - Dashboard</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #000000; color: #ffffff; margin: 0; padding: 20px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        
+        center h1 { color: #e50914; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; }
+        center h2 { font-weight: 300; color: #b3b3b3; margin-top: 0; }
+
+        .stats-bar { background-color: #141414; padding: 15px; border-radius: 8px; display: flex; justify-content: space-around; align-items: center; margin-bottom: 20px; border-bottom: 2px solid #e50914; border: 1px solid #333; }
+        
+        .logout-btn { background-color: transparent; color: #e50914; border: 1px solid #e50914; padding: 5px 15px; text-decoration: none; border-radius: 4px; }
+
+        .cookie-notice { background: #141414; color: #f5c518; padding: 10px; border-radius: 5px; margin-bottom: 20px; text-align: center; border: 1px dashed #f5c518; }
+
+        fieldset { background-color: #141414; border: 1px solid #333; border-radius: 10px; padding: 25px; margin-bottom: 40px; }
+        legend { color: #f5c518; font-weight: bold; font-size: 1.2rem; padding: 0 10px; }
+        
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+        input, select { background-color: #222; border: 1px solid #444; color: white; padding: 10px; border-radius: 5px; width: 100%; box-sizing: border-box; }
+        
+        button { background-color: #e50914; color: white; border: none; padding: 10px; font-weight: bold; border-radius: 5px; cursor: pointer; }
+        .btn-add { grid-column: 1 / -1; margin-top: 10px; padding: 12px; }
+
+        table { width: 100%; border-collapse: collapse; background-color: #141414; border-radius: 10px; overflow: hidden; border: 1px solid #333; }
+        th { background-color: #222; color: #f5c518; text-align: left; padding: 15px; }
+        td { padding: 15px; border-bottom: 1px solid #333; }
+
+        .btn-detalii { background-color: #333; color: white; padding: 6px 12px; text-decoration: none; border-radius: 4px; font-size: 0.8rem; }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <center>
+            <h1>Cinema Tracker</h1>
+            <h2>Salut, <%= user.email %>! </h2>
+        </center>
+
+        <div class="stats-bar">
+            <div>
+                <p> <b>Gen preferat:</b> <%= moviePref %></p>
+                <form action="/movies/set-preference" method="POST" style="display: inline-block; margin-top: 5px;">
+                    <select name="genre" onchange="this.form.submit()" style="padding: 2px; font-size: 0.7rem; width: auto;">
+                        <option value="" disabled selected>Schimbă preferința</option>
+                        <option value="Acțiune">Acțiune</option>
+                        <option value="Comedie">Comedie</option>
+                        <option value="Dramă">Dramă</option>
+                        <option value="SF">SF</option>
+                        <option value="Horror">Horror</option>
+                    </select>
+                </form>
+            </div>
+            <p> <b>Vizite:</b> <%= views %></p>
+            <a href="/logout" class="logout-btn">Logout</a>
+        </div>
+
+        <% if (lastMovieCookie) { %>
+            <div class="cookie-notice">
+                 Te-ai uitat ultima dată la: <strong><%= lastMovieCookie %></strong>
+            </div>
+        <% } %>
+
+        <form action="/movies/add" method="POST">
+            <fieldset>
+                <legend>Adaugă în Catalog</legend>
+                <div class="form-grid">
+                    <div>Titlu:<br><input type="text" name="titlu" required></div>
+                    <div>An:<br><input type="number" name="an" value="2024"></div>
+                    <div>Gen:<br>
+                        <select name="gen">
+                            <option>Acțiune</option><option>Comedie</option><option>Dramă</option><option>SF</option><option>Horror</option>
+                        </select>
+                    </div>
+                    <div>Regizor:<br><input type="text" name="regizor"></div>
+                    <button type="submit" class="btn-add">Adaugă Film</button>
+                </div>
+            </fieldset>
+        </form>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Titlu Film</th>
+                    <th>An</th>
+                    <th>Gen</th>
+                    <th>Informații</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% movies.forEach(m => { %>
+                    <tr>
+                        <td><b><%= m.titlu %></b></td>
+                        <td><%= m.an %></td>
+                        <td><%= m.gen %></td>
+                        <td><a href="/movies/<%= m.id %>" class="btn-detalii">Detalii</a></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

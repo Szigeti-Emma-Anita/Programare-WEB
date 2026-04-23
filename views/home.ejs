@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinema Tracker - Home</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000000;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        .home-container {
+            max-width: 500px;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #e50914;
+            letter-spacing: 1px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: #8c8c8c;
+            margin-bottom: 40px;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .btn {
+            width: 200px;
+            padding: 14px 0;
+            font-size: 1rem;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .btn-login {
+            background-color: #e50914;
+            color: white;
+        }
+
+        .btn-register {
+            background-color: #333333;
+            color: white;
+        }
+
+        .btn:hover {
+            cursor: pointer;
+        }
+
+        .version {
+            margin-top: 50px;
+            font-size: 0.75rem;
+            color: #404040;
+        }
+    </style>
+</head>
+<body>
+    <div class="home-container">
+        <h1>Cinema Tracker</h1>
+        <p>Gestionare catalog filme personal.</p>
+        <div class="btn-group">
+            <a href="/login" class="btn btn-login">Login</a>
+            <a href="/register" class="btn btn-register">Register</a>
+        </div>
+        <div class="version">v1.0.0 | Proiect Node.js</div>
+    </div>
+</body>
+</html>
